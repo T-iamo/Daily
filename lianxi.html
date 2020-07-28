@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="d1"></div>
+<div id="d2"></div>
+<div id="d3"></div>
+<div id="d4"></div>
+<div id="d5"></div>
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+<script type="text/babel">
+    // class NameForm extends React.Component {
+    //     constructor(props) {
+    //         super(props);
+    //         this.state = {value: ''}
+    //         this.handleChange = this.handleChange.bind(this)
+    //         this.handleSubmit = this.handleSubmit.bind(this)
+    //     }
+    //     handleChange(event){
+    //         this.setState({value: event.target.value});
+    //     }
+    //     handleSubmit(event){
+    //         alert('提交的名字: ' + this.state.value);
+    //         event.preventDefault();
+    //     }
+    //     render(){
+    //         return (
+    //             <form onSubmit={this.handleSubmit}>
+    //                 <label>
+    //                     名字 ：
+    //                     <input type="text" value={this.state.value} onChange={this.handleSubmit} />
+    //                 </label>
+    //                 <input type="submit" value="提交" />
+    //             </form>
+    //         )
+    //     }
+    // }
+    // ReactDOM.render(
+    //     <NameForm />,
+    //     document.getElementById('d1')
+    // );
+    //处理多个输入
+    class Reservation extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                isGoing: true,
+                numberOfGuests: 2
+            }
+            this.handleInputChange = this.handleInputChange.bind(this);
+        }
+        handleInputChange(event) {
+            const target = event.target;
+            const value = target.name === 'isGoing' ? target.checked : target.value;
+            const name = target.name;
+            this.setState({
+                [name]: value//使用了ES6的计算机属性名语法
+            })
+        }
+        render() {
+            return (
+                <form>
+                    <label>
+                        参与 ：
+                        <input name="isGoing"
+                               type="checkbox"
+                               checked={this.state.isGoing}
+                               onChange={this.handleInputChange}
+                        />
+                    </label>
+                    来宾人数 ：
+                    <label>
+                        <input name="numberOfGuests"
+                               type="number"
+                               value={this.state.numberOfGuests}
+                               onChange={this.handleInputChange}
+                        />
+                    </label>
+                </form>
+            )
+        }
+    }
+    ReactDOM.render(
+        <Reservation />,
+        document.getElementById('d2')
+    );
+
+    class FlavorForm extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {value: '葡挞皮'}
+            this.handleChange = this.handleChange.bind(this)
+            this.handleSubmit = this.handleSubmit.bind(this)
+
+        }
+        handleChange(event) {
+            this.setState({
+                value: event.target.value
+            })
+        }
+        handleSubmit(event) {
+            alert('你喜欢的风味是 : ' + this.state.value)
+            event.preventDefault();
+        }
+        render() {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        选择你喜欢的风味 ：
+                        <select value={this.state.value} onChange={this.handleChange}>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                        </select>
+                    </label>
+                </form>
+            )
+        }
+    }
+</script>
+</body>
+</html>

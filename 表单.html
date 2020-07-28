@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="d1"></div>
+<div id="d2"></div>
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+<script type="text/javascript" src="./js/formik.umd.production.min.js"></script>
+<script type="text/babel">
+  //受控组件
+  class NameForm extends React.Component {
+      constructor(props) {
+          super(props);
+          this.state = {value: ''};
+
+          this.handleChange = this.handleChange.bind(this);
+          this.handleSubmit = this.handleSubmit.bind(this);
+      }
+
+      handleChange(event) {
+          this.setState({value: event.target.value});
+      }
+
+      handleSubmit(event) {
+          alert('详情信息: ' + this.state.value);
+          event.preventDefault();
+      }
+
+      render() {
+          return (
+              <form onSubmit={this.handleSubmit}>
+                  <label>
+                      请输入 ：
+                      <input type="text" value={this.state.value} onChange={this.handleChange} />
+                  </label>
+                  <input type="submit" value="提交" />
+              </form>
+          );
+
+      }
+
+  }
+
+  ReactDOM.render(
+      <NameForm />,
+      document.getElementById('d1')
+  );
+<br />
+
+    //select标签
+  class FlavorForm extends React.Component {
+      constructor(props) {
+          super(props);
+          this.state = {value: '🍇葡萄'};
+
+          this.handleChange = this.handleChange.bind(this);
+          this.handleSubmit = this.handleSubmit.bind(this);
+      }
+
+      handleChange(event) {
+          this.setState({value: event.target.value});
+      }
+
+      handleSubmit(event) {
+          alert('你选择的是 : ' + this.state.value);
+          event.preventDefault();
+      }
+
+      render() {
+          return (
+              <form onSubmit={this.handleSubmit}>
+                  <label>
+                      请选择您的口味:
+                      <select value={this.state.value} onChange={this.handleChange}>
+                          <option value="🍇葡萄">🍇葡萄</option>
+                          <option value="🍍凤梨">🍍凤梨</option>
+                          <option value="🍉西瓜">🍉西瓜</option>
+                          <option value="🍓草莓">🍓草莓</option>
+                          <option value="🥥椰子">🥥椰子</option>
+                          <option value="🍋柠檬">🍋柠檬</option>
+                          <option value="🍌香蕉">🍌香蕉</option>
+                          <option value="🍊想成">🍊想成</option>
+                      </select>
+                  </label>
+                  <input type="submit" value="提交" />
+              </form>
+          );
+      }
+
+  }
+
+  ReactDOM.render(
+      <FlavorForm />,
+      document.getElementById('d2')
+  );
+
+</script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>焦宝成掉头发</title>
+    <link rel="stylesheet" href="1.css">
+</head>
+<body>
+    <script type="text/javascript" src="./js/react.development.js"></script>
+    <script type="text/javascript" src="./js/react-dom.development.js"></script>
+    <script type="text/javascript" src="./js/babel.min.js"></script>
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <div id="root"></div>
+    <div id="root2"></div>
+    <div id="root3"></div>
+    <div id="root4"></div>
+    <div id="root5"></div>
+    <div id="root6"></div>
+    <script type="text/javascript">
+        const msg = 'forever love!'
+        const myId = 'sEe you!'
+
+        //1. 创建虚拟DOM
+        //React  的语法
+        const vDom1 = React.createElement('h1',{id:myId.toLowerCase()},msg.toUpperCase())
+        //2. 渲染虚拟DOM
+        ReactDOM.render(vDom1,document.getElementById('test1'))
+    </script>
+
+    <script type="text/babel">//改为babel因为使用jsx语法
+    //1. 创建虚拟DOM
+    //此处用大括号{} 不用单引号或双引号
+        const vDom2 = <h1 id={myId.toUpperCase()}>{msg.toLowerCase()}</h1>
+    //2. 渲染虚拟DOM
+        ReactDOM.render(vDom2,document.getElementById('test2'))
+    //封装一个定时器
+    class Clock extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {date: new Date()};
+        }
+        //设置定时器
+        componentDidMount() {
+            this.timerID = setInterval(
+                () => this.tick(),
+                1000
+            )
+        }
+        //清除定时器
+        componentWillUnmount() {
+            clearInterval(this.timerID);
+        }
+        tick() {
+            this.setState({//this.setState来时刻更新组件
+                date: new Date()
+            });
+        }
+        render(){
+            return (
+                <div>
+                    <h1>明天见</h1>
+                    <h2>当前时间:{this.state.date.toLocaleTimeString()}.</h2>
+                </div>
+            );
+        }
+    }
+        function tick() {
+            ReactDOM.render(
+                <Clock />,
+                document.getElementById('test2')
+            );
+        }
+        setInterval(tick,1000)
+
+        //用es6的class来定义组件 组件名称必须以大写字母开头
+        class Welcome extends React.Component {
+            render() {
+                return <h1>Hello,{this.props.name}</h1>
+            }
+        }
+        //自定义组件
+        const element = <Welcome name="Sara" />
+        ReactDOM.render(element, document.getElementById('test1'));
+
+        //组件组合
+        function Welcometo(props) {
+            return <h1>Hello, {props.name}</h1>;
+        }
+        function App() {
+            return (
+                <div>
+                    <Welcometo name="Sara" />
+                    <Welcometo name="Cahal" />
+                    <Welcometo name="Edite" />
+                </div>
+            );
+        }
+        ReactDOM.render(<App />, document.getElementById('test1'));
+
+         //提取组件
+        function formatDate(date) {
+            return date.toLocaleDateString();
+        }
+
+        function Comment(props) {
+            return (
+                <div className="Comment">
+                    <div className="UserInfo">
+                        <img
+                            className="Avatar"
+                            src={props.author.avatarUrl}
+                            alt={props.author.name}
+                        />
+                        <div className="UserInfo-name">
+                            {props.author.name}
+                        </div>
+                    </div>
+                    <div className="Comment-text">{props.text}</div>
+                    <div className="Comment-date">
+                        {formatDate(props.date)}
+                    </div>
+                </div>
+            );
+        }
+    const comment = {
+        date: new Date(),
+        text: <h2>无缘世界赛!</h2>,
+        author: {
+            name: <h2>Hello Uzi</h2>,
+            avatarUrl: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3534268130,812402323&fm=26&gp=0.jpg',
+        },
+    };
+    ReactDOM.render(
+        <Comment
+            date={comment.date}
+            text={comment.text}
+            author={comment.author}
+        />,
+        document.getElementById('test1')
+    );
+    </script>
+
+
+        <!--点击事件   事件处理-->
+    <script type="text/babel">
+        class Toggle extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {isToggleOn: true};
+
+                // 为了在回调中使用 `this`，这个绑定是必不可少的
+                this.handleClick = this.handleClick.bind(this);
+            }
+
+            handleClick() {
+                this.setState(state => ({
+                    isToggleOn: !state.isToggleOn
+                }));
+            }
+
+            render() {
+                return (
+                    <button onClick={this.handleClick}>
+                        {this.state.isToggleOn ? 'ON' : 'OFF'}
+                    </button>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <Toggle />,
+            document.getElementById('root')
+        );
+
+
+        class LoginControl extends React.Component {
+            constructor(props) {
+                super(props);
+                this.handleLoginClick = this.handleLoginClick.bind(this);
+                this.handleLogoutClick = this.handleLogoutClick.bind(this);
+                this.state = {isLoggedIn: false};
+            }
+
+            handleLoginClick() {
+                this.setState({isLoggedIn: true});
+            }
+
+            handleLogoutClick() {
+                this.setState({isLoggedIn: false});
+            }
+
+            render() {
+                const isLoggedIn = this.state.isLoggedIn;
+                let button;
+
+                if (isLoggedIn) {
+                    button = <LogoutButton onClick={this.handleLogoutClick} />;
+                } else {
+                    button = <LoginButton onClick={this.handleLoginClick} />;
+                }
+
+                return (
+                    <div>
+                        <Greeting isLoggedIn={isLoggedIn} />
+                        {button}
+                    </div>
+                );
+            }
+        }
+        //条件渲染
+        function UserGreeting(props) {
+            return <h1>欢迎下次光临.</h1>;
+        }
+
+        function GuestGreeting(props) {
+            return <h1>Welcome to 江山天安!</h1>;
+        }
+
+        function Greeting(props) {
+            const isLoggedIn = props.isLoggedIn;
+            if (isLoggedIn) {
+                return <UserGreeting />;
+            }
+            return <GuestGreeting />;
+        }
+
+        function LoginButton(props) {
+            return (
+                <button onClick={props.onClick}>
+                    Login
+                </button>
+            );
+        }
+
+        function LogoutButton(props) {
+            return (
+                <button onClick={props.onClick}>
+                    Logout
+                </button>
+            );
+        }
+
+        ReactDOM.render(
+            <LoginControl />,
+            document.getElementById('root2')
+        );
+
+
+
+        //组织渲染
+        function WarningBanner(props) {
+            if (!props.warn) {
+                return null;
+            }
+
+            return (
+                <div className="warning">
+                    Warning!
+                </div>
+            );
+        }
+
+        class Page extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {showWarning: true};
+                this.handleToggleClick = this.handleToggleClick.bind(this);
+            }
+
+            handleToggleClick() {
+                this.setState(state => ({
+                    showWarning: !state.showWarning
+                }));
+            }
+
+            render() {
+                return (
+                    <div>
+                        <WarningBanner warn={this.state.showWarning} />
+                        <button onClick={this.handleToggleClick}>
+                            {this.state.showWarning ? 'Hide' : 'Show'}
+                        </button>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <Page />,
+            document.getElementById('root3')
+        );
+
+
+        //列表
+        function ListItem(props) {
+            return <li>{props.value}</li>;
+        }
+
+        function NumberList(props) {
+            const numbers = props.numbers;
+            return (
+                <ul>
+                    {numbers.map((number) =>
+                        <ListItem key={number.toString()}
+                                  value={number} />
+                    )}
+                </ul>
+            );
+        }
+
+        const numbers = [1, 2, 3, 4, 5];
+        ReactDOM.render(
+            <NumberList numbers={numbers} />,
+            document.getElementById('root5')
+        );
+
+
+
+
+        function Blog(props) {
+            const sidebar = (
+                <ul>
+                    {props.posts.map((post) =>
+                        <li key={post.id}>
+                            {post.title}
+                        </li>
+                    )}
+                </ul>
+            );
+            const content = props.posts.map((post) =>
+                <div key={post.id}>
+                    <h3>{post.title}</h3>
+                    <p>{post.content}</p>
+                </div>
+            );
+            return (
+                <div>
+                    {sidebar}
+                    <hr />
+                    {content}
+                </div>
+            );
+        }
+
+        const posts = [
+            {id: 1, title: 'Hello World', content: 'Welcome to learning React!'},
+            {id: 2, title: 'Installation', content: 'You can install React from npm.'}
+        ];
+        ReactDOM.render(
+            <Blog posts={posts} />,
+            document.getElementById('root6')
+        );
+    </script>
+</body>
+</html>
