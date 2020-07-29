@@ -1,0 +1,70 @@
+1.git init 初始化
+2.设置签名
+git config user.name JBC
+git config user.email 12324@qq.com
+查看用户信息
+cat ~/.gitconfig
+GIT
+3.查看状态
+git status(查看工作区、暂存区)
+4.添加(提交到暂存区)
+git add 文件名
+git rm -cached 文件名(从暂存区撤回)
+5.git commit file(需要输入提交信息日志)
+   git commit -m '注释'(将暂存区的内容提交到本地库)
+   
+
+git reset 索引(撤销步骤，回退版本)
+git reset HEAD(可以将暂存区的修改撤销掉，重新放回工作区)
+
+git log(查看日志)
+
+git reflog(有序排列的日志)
+git log --preety=oneline(每个历史只是显示一行
+)
+git log --oneline(每个历史只显示一行且显示hash的部分值)
+
+git diff HEAD^^ 文件名 (比较版本差异)
+git diff 查看修改的哪里
+
+分支管理：
+创建分支：git branch 分支名
+查看分支：git branch -v
+切换分支：git checkout分支名
+合并分支：git merge 有新内容的分支名
+创建远程别名
+git remote -vgit
+
+
+上传到github仓库步骤
+
+第一次的话先初始化
+git init
+
+ git add . (或者文件名名字)
+
+git commit -m "备注"
+
+git remote add origin 远程地址（可能会报未知错误 今天遇到origin别名已存在,,,,可以使用 git remote rm origin清除）
+
+git pull --rebase origin master（多人开发过程中这个步骤不可少,避免覆盖掉别人的文件或代码）
+
+$ git push -u origin master(拉取  上传到远程仓库)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
