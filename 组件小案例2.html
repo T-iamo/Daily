@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+<script src="./js/prop-types.js"></script>
+<div id="d1"></div>
+<div id="d2"></div>
+<script type="text/babel">
+    /*需求：自定义显示一个人员信息的组件
+        姓名必须指定
+        如果性别没偶指定 默认为男
+        如果年龄没有指定 默认为18
+
+        这个没有状态 可以用工厂函数简易的方式来处理
+    */
+    // 1. 定义组件
+    function Person(props) {
+        return (
+            <ul>
+                <li>姓名 : {props.name}</li>
+                <li>年龄 : {props.age}</li>
+                <li>性别 : {props.sex}</li>
+            </ul>
+        )
+    }
+    //指定属性默认值
+    Person.defaultProps = {
+        sex: '男',
+        age: 18
+    }
+
+    //指定属性值的类型和必要性  需要引入prop-types.js文件
+    Person.propTypes = {
+        name: PropTypes.string.isRequired,
+        age: PropTypes.number
+    }
+
+    // 2. 渲染组件标签
+    //渲染标签前需要有数据
+    const p1 = {
+        name:'杰克',
+        age: 18,
+        sex: '男'
+    }
+
+    ReactDOM.render(
+        //<Person name={p1.name} age={p1.age} sex={p1.sex} />,
+        /*...的作用
+            1. 打包
+            function fn(...as) {} = fn(1,2,3)
+            2. 解包  （把属性分别赋值）
+            const arr1 = [1,2,3,] const arr2 = [6,...arr1,9]
+        */
+        <Person {...p1} />,
+
+        document.getElementById('d1')
+    )
+    const p2 = {
+        name:'杰克',
+
+
+    }
+    ReactDOM.render(
+        <Person name={p2.name} age={27} />,
+        document.getElementById('d2')
+    )
+</script>
+</body>
+</html>
