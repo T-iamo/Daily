@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="组合继承.css">
+
+</head>
+<body>
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+<div id="d1"></div>
+<div id="d2"></div>
+<div id="d3 "></div>
+<script type="text/babel">
+    function FancyBorder(props) {
+        return (
+            <div className={'FancyBorder FancuBorder-' + props.color}>
+                {props.children}
+            </div>
+        )
+    }
+
+    function Dialog(props) {
+        return (
+            <FancyBorder color="blue">
+                <h1 className="Dialog-title">
+                    {props.title}
+                </h1>
+                <p className="Dialog-message">
+                    {props.message}
+                </p>
+                {props.children}
+            </FancyBorder>
+        );
+    }
+    //以class形式来自定义组件
+    class SignUpDialog extends React.Component {
+        constructor(props) {
+            super(props);
+            this.handleChange = this.handleChange.bind(this)
+            this.handleSignUp = this.handleSignUp.bind(this)
+            this.state = {login: ''};
+        }
+        render() {
+            return (
+                <Dialog title="火星探测计划"
+                        message="该怎么称呼你?">
+                    <input value={this.state.login}
+                           onChange={this.handleChange}
+                    />
+                    <button onClick={this.handleSignUp}>
+                        捶我 !!!
+                    </button>
+                </Dialog>
+            )
+        }
+        handleChange(e){
+            this.setState({login:e.target.value})
+        }
+        handleSignUp(e) {
+            alert(`欢迎加入, ${this.state.login}!`);
+        }
+    }
+
+    function WelcomeDialog() {
+        return (
+            <Dialog
+                title="Welcome"
+                message="Thank you for visiting our spacecraft!" />
+        );
+    }
+    ReactDOM.render(
+        <SignUpDialog />,
+        document.getElementById('d1')
+    )
+
+    function Contacts() {
+        return <div className="Contacts" />;
+    }
+
+    function Chat() {
+        return <div className="Chat" />;
+    }
+
+    function SplitPane(props) {
+        return (
+            <div className="SplitPane">
+                <div className="SplitPane-left">
+                    {props.left}
+                </div>
+                <div className="SplitPane-right">
+                    {props.right}
+                </div>
+            </div>
+        );
+    }
+
+    function App() {
+        return (
+            <SplitPane
+                left={
+                    <Contacts />
+                }
+                right={
+                    <Chat />
+                } />
+        );
+    }
+
+    ReactDOM.render(
+        <App />,
+        document.getElementById('d2')
+    );
+
+
+
+
+</script>
+</body>
+</html>

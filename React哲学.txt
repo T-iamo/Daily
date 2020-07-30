@@ -1,0 +1,25 @@
+第一步：将UI划分为组件层级
+
+   FilterableProductTable
+
+         SearchBar
+         ProductTable
+
+                  ProductCategoryRow
+                  ProductRow
+
+
+第二步：创建一个静态版本
+    先用已有的数据模型渲染一个不交互的UI。
+    把渲染UI和交互两个过程分开
+
+第三步：确定 UI state的最小表示
+   需要编写一个任务清单应用,需要展示任务个数时用length属性
+
+
+第四步：确定 state 放置的位置
+  state 存放在 FilterableProductTable 组件中。首先，将实例属性 this.state = {filterText: '', inStockOnly: false} 添加FilterableProductTable 的 constructor 中，设置应用的初始 state；接着，将 filterText 和 inStockOnly 作为 props 传入 ProductTable 和 SearchBar；最后，用这些 props 筛选 ProductTable 中的产品信息，并设置 SearchBar 的表单值。
+
+
+第五步：添加反向数据流
+  使用输入框的 onChange 事件来监视用户输入的变化，并通知 FilterableProductTable 传递给 SearchBar 的回调函数。然后该回调函数将调用 setState()，从而更新应用
