@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+<div id="d1"></div>
+<div id="d2"></div>
+<script type="text/babel">
+    // 1.定义组件
+    // 方式1:工厂函数组件(简单组件:没偶状态的组件)
+    function MyZujian() {
+        return <h2>工厂函数组件</h2>
+    }
+
+    // 方式2：ES6类组件（复杂组件）
+
+    class MyZj extends React.Component {
+        render (){
+            return <h2>ES6类组件（复杂组件）</h2>
+        }
+    }
+    // 2.渲染组件标签
+    //渲染工厂函数组件
+    ReactDOM.render(
+        <MyZujian />,
+        document.getElementById('d1')
+    )
+
+    //渲染ES6类组件
+    ReactDOM.render(
+        <MyZj />,
+        document.getElementById('d2')
+    )
+</script>
+</body>
+</html>
