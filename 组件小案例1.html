@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+<div id="d1"></div>
+<script type="text/babel">
+    /*
+        需求：自定义组件
+        1. 显示h2标题,初始文本：咋的啊？？
+        2.点击标题更新为： 看我扎不扎你就完了
+    */
+
+    //定义组件
+        class NiChous extends React.Component {
+            constructor(props) {
+                super(props);
+                //1. 初始化状态
+                this.state = { isNiChous: false }
+                //将新增方法中的this强制绑定为组件对象  再下方第46行注释代码中绑定也是可以的不过不常用 而且效率低
+                this.handleClick = this.handleClick.bind(this)
+            }
+            //新添加方法:通过打印得知内部的this默认不是组件对象而是undefined
+            handleClick () {
+                // console.log('handleClick()',this)
+                //3. 得到状态并取反
+                const isNiChous = !this.state.isNiChous
+                // 更新状态
+                this.setState({isNiChous})//ES6简写语法
+            }
+            //重写组件类的方法
+            render() {
+                //2. 读取状态
+                //ES6写法    （结构赋值）
+                const {isNiChous} = this.state
+                //这里Click要用大写,是框架封装的事件  this.handleClick处理事件(this是组件对象)
+                return <h2 onClick={this.handleClick}>{isNiChous?'看我扎不扎你就完了':'咋的啊？'}</h2>
+               // return <h2 onClick={this.handleClick.bind(this)}>{isNiChous?'咋的啊':'看我扎不扎你就完了'}</h2>
+            }
+        }
+    //渲染组件
+
+    ReactDOM.render(
+        <NiChous />,
+        document.getElementById('d1')
+    )
+</script>
+</body>
+</html>
