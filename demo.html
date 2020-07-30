@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+<h1>任务计划</h1>
+<div id="d1"></div>
+<script type="text/babel">
+    //功能图
+    // 1.创建虚拟DOM
+    const liebiao = ['React', 'typescript', 'antd', 'webpack','dva','umi','antdpro']
+    const ul = (
+        <ul>
+            {liebiao.map((name,index) => <li key={index}>{name}</li>)}
+        </ul>
+    )
+    // 2.渲染虚拟DOM
+    ReactDOM.render(ul,document.getElementById('d1'))
+
+</script>
+</body>
+</html>
